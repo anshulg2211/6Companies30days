@@ -1,0 +1,49 @@
+class Solution {
+public:
+    string gcdOfStrings(string str1, string str2) {
+        string ans="";
+        int n1=str1.size(),n2=str2.size();
+        int gcd = __gcd(n1,n2);
+        bool b=true;
+        ans=str1.substr(0,gcd);
+        int j=0;
+        for(int i=0;i<n1;i++)
+        {
+            if(str1[i]==ans[j])
+            {
+                j++;
+                j=j%gcd;
+            }
+            else
+            {
+                b=false;
+                break;
+            }
+        }
+        if(b)
+        {
+        j=0;
+        for(int i=0;i<n2;i++)
+        {
+            if(str2[i]==ans[j])
+            {
+                j++;
+                j=j%gcd;
+            }
+            else
+            {
+                b=false;
+                break;
+            }
+        }
+        }
+        if(!b)
+        {
+            return "";
+        }
+        else
+        {
+            return ans;
+        }
+    }
+};
