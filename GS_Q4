@@ -1,0 +1,47 @@
+// { Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+string encode(string src);    
+ 
+int main() {
+	
+	int T;
+	cin>>T;
+	while(T--)
+	{
+		string str;
+		cin>>str;
+		
+		cout<<encode(str)<<endl;
+	}
+	return 0;
+}// } Driver Code Ends
+
+
+/*You are required to complete this function */
+
+string encode(string src)
+{     
+  string ans="";
+  int count,n=src.size();
+  for(int i=1;i<n;i++)
+  {
+      ans+=src[i-1];
+      count=1;
+      while(src[i-1]==src[i] && i<n)
+      {
+          count++;
+          i++;
+      }
+      ans+=(count+'0');
+      
+  }
+  if(ans[(int)ans.size()-2]!=src[n-1])
+  {
+     ans+=src[n-1];
+     ans+='1';
+  }
+  return ans;
+}     
+ 
