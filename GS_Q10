@@ -1,0 +1,39 @@
+Question - Find max 10 numbers in a list having 10M entries.
+
+Ans - We can create a priority queue of size 10, with a worst case time complexity of O(N*log(10)) which is O(N) only.
+Here N = 10 million elements.
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    priority_queue<int,vector<int>,greater<int>> pq;  //min heap priority queue, example: 4 6 8 11 23 where 4 is top element
+    int n;
+    cin>>n;
+    int arr[n]; //n = 10 million
+    for(int i=0;i<n;i++)
+    cin>>arr[i];
+    
+    for(int i=0;i<10;i++)
+    {
+      pq.push(arr[i]);
+    }
+    for(int i=10;i<n;i++)
+    {
+     if(arr[i]>pq.top())
+     {
+       pq.pop();
+       pq.push(arr[i]);
+     }
+    }
+    cout<<"Top 10 elements: ";
+    while(!pq.empty())
+    {
+        cout<<pq.top()<<" ";
+        pq.pop();
+    }
+}
+ 
+ 
+
