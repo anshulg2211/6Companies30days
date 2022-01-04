@@ -1,0 +1,52 @@
+// { Driver Code Starts
+#include <bits/stdc++.h>
+
+using namespace std;
+
+ // } Driver Code Ends
+class Solution{
+public:
+    int *findTwoElement(int *arr, int n) {
+        int rep=0,mis=0;
+        for(int i=0;i<n;i++) 
+        {
+            int idx=abs(arr[i])-1;
+            if(arr[idx]>0)
+            {
+                arr[idx]*=-1;   //we will make all visited elements negative at their indexes
+            }
+            else
+            {
+                rep=abs(arr[i]);  //if an element is already negative that means it was repeated
+            }
+        }
+        for(int i=0;i<n;i++)
+        {
+            if(arr[i]>0)            //if element was not negative, it didn't exist in the array
+            mis=i+1;
+        }
+        int *ans=new int[2];
+        ans[0]=rep;
+        ans[1]=mis;
+        return ans;
+    }
+};
+
+// { Driver Code Starts.
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        int a[n];
+        for (int i = 0; i < n; i++) {
+            cin >> a[i];
+        }
+        Solution ob;
+        auto ans = ob.findTwoElement(a, n);
+        cout << ans[0] << " " << ans[1] << "\n";
+    }
+    return 0;
+}  // } Driver Code Ends
