@@ -1,0 +1,49 @@
+// { Driver Code Starts
+// Initial template for C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+ // } Driver Code Ends
+// User function Template for C++
+
+class Solution {
+  public:
+    int maxProfit(int K, int N, int A[]) {
+        int dp[N+1][2][K+1];  //[days][hold][transactions] using top down approach
+        for(int day=N-1;day>=0;day--)
+        {
+            for(int trans=0;trans<=K;trans++)
+            {
+                if(day == N-1)
+                {
+                    dp[day][0][trans]=0;    //no holding at last day means no profit
+                    dp[day][1][trans]=(trans>=1)?A[day]:0;  //holding at last day means necesarry sell if transactions are allowed
+                }
+                else
+                {
+                    dp[day][0][trans]=max(dp[day+1][1][trans]-A[day],dp[day+1][0][trans]); //no holding means either buy or continue and select better of 2
+                    dp[day][1][trans]=max((trans>=1)?dp[day+1][0][trans-1]+A[day]:0,dp[day+1][1][trans]); //holding means either sell(if transactions are allowed) or keep holding and choose max of them
+                }
+            }
+        }
+        return dp[0][0][K];
+    }
+};
+
+// { Driver Code Starts.
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int N, K;
+        cin >> K;
+        cin >> N;
+        int A[N];
+        for (int i = 0; i < N; i++) cin >> A[i];
+
+        Solution ob;
+        cout << ob.maxProfit(K, N, A) << endl;
+    }
+    return 0;
+}  // } Driver Code Ends
