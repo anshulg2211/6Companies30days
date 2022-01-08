@@ -1,0 +1,43 @@
+class Solution{
+public:
+    int partition(char a[],int low,int high,int pivot)
+    {
+        int st = low;
+        for(int i=low;i<high;i++)
+        {
+            if(a[i]<pivot)
+            {
+                int temp = a[st];
+                a[st]=a[i];
+                a[i]=temp;
+                st++;
+            }
+            else if(a[i]==pivot)
+            {
+                int temp = a[high];
+                a[high]=a[i];
+                a[i]=temp;
+                i--;
+            }
+        }
+        int temp = a[high];
+        a[high]=a[st];
+        a[st]=temp;
+        return st;
+    }
+    void quickSort(char nuts[],char bolts[],int low,int high)
+    {
+        if(low<high)
+        {
+            int piv_idx = partition(nuts,low,high,bolts[high]);
+            partition(bolts,low,high,nuts[piv_idx]);
+            
+            quickSort(nuts,bolts,low,piv_idx-1);
+            quickSort(nuts,bolts,piv_idx+1,high);
+        }
+    }
+	void matchPairs(char nuts[], char bolts[], int n) {
+	   quickSort(nuts,bolts,0,n-1);
+	}
+
+};
