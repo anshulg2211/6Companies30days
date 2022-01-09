@@ -1,0 +1,61 @@
+class Solution {
+  public:
+    int calcDepth(Node* root)
+    {
+        if(root==NULL)
+        return -1;
+        else
+        {
+            int l = calcDepth(root->left);
+            int r = calcDepth(root->right);
+            if(l>r)
+            return l+1;
+            else
+            return r+1;
+        }
+    }
+    bool findT(Node* root,int target,int &depth)   //find target and its depth
+    {
+        if(root==NULL)
+        return false;
+        if(root->data==target)
+        {
+            depth=1;
+            return true;
+        }
+        
+        bool b1=findT(root->left,target,depth);
+        if(b1)
+        {
+            depth++;
+            return b1;
+        }
+        bool b2=findT(root->right,target,depth);
+        if(b2)
+        depth++;
+        return b2;
+    }
+    
+    int minTime(Node* root, int target) 
+    {
+        if(root==NULL)
+        return 0;
+        int depth = calcDepth(root);
+        int lD=1+calcDepth(root->left),rD=1+calcDepth(root->right);
+        if(root->data==target)
+        return depth;
+        int depTar=0,v1=0,v2=0;
+        bool a=findT(root->left,target,depTar);  //find if target is at left
+        if(a)
+        v1 = max(lD-depTar,rD+depTar);
+        depTar=0;
+        bool b=findT(root->right,target,depTar); //find if target is at right
+        if(b)
+        v2 =  max(rD-depTar,lD+depTar);
+        int ans1=max(v1,v2);
+        int ans2=minTime(root->left,target);
+        int ans3=minTime(root->right,target);
+        return max(ans1,max(ans2,ans3));
+        
+    }
+};
