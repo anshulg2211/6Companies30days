@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int dp[500][500];
+    int solve(vector<int>&arr,int st,int end)
+    {
+        if(st>end)
+        return 0;
+        if(dp[st][end]!=0)
+        return dp[st][end];
+        
+        return dp[st][end] = max(
+                            arr[st]+min(solve(arr,st+2,end),solve(arr,st+1,end-1)),
+                            arr[end]+min(solve(arr,st,end-2),solve(arr,st+1,end-1))
+                          );
+    }
+    int maxCoins(vector<int>&A,int n)
+    {
+	    memset(dp,0,sizeof(dp));
+	    return solve(A,0,n-1);
+    }
+};
