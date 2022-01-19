@@ -1,0 +1,22 @@
+class Solution{
+  public:
+    /*You are required to complete this method */
+    int atoi(string str) {
+        int ans=0;
+        bool b=false;
+        for(int i=0;i<str.length();i++)
+        {
+            if(i==0 && str[0]=='-')
+            b=true;
+            else if(str[i]>='0' && str[i]<='9')
+            {
+                ans = 10*ans+(str[i]-'0');
+            }
+            else
+            return -1;
+        }
+        if(b)
+        ans*=-1;
+        return ans;
+    }
+};
