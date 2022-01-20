@@ -1,0 +1,39 @@
+class Solution {
+  public:
+    vector<int> longIncSubs(vector<int>&a)
+    {
+        vector<int> ans;
+        int n=a.size();
+        for(int i=0;i<n;i++)
+        {
+            auto it = lower_bound(ans.begin(),ans.end(),a[i]);
+            if(it!=ans.end())
+            {
+                *it = min(*it,a[i]);
+            }
+            else
+            {
+                ans.push_back(a[i]);
+            }
+        }
+        return ans;
+    }
+    int minInsAndDel(int A[], int B[], int N, int M) {
+        unordered_set<int> s;
+        for(int i=0;i<M;i++)
+        s.insert(B[i]);
+        vector<int> newA;
+        int ans=0;
+        for(int i=0;i<N;i++)
+        {
+            if(s.find(A[i])!=s.end())
+            newA.push_back(A[i]);
+            else
+            ans++;                       
+        } 
+        vector<int>lis = longIncSubs(newA);
+        int j=0;
+        ans+=(newA.size()-lis.size())+(M-lis.size());
+        return ans;
+    }
+};
