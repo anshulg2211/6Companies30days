@@ -1,0 +1,36 @@
+class Solution{
+  public:
+    string nextPalin(string s) { 
+        int n=s.length();
+        if(n<=3)
+        return "-1";
+        int i=n/2-1;
+        while(i>=1 && s[i]<=s[i-1])
+        {
+            i--;
+        }
+        if(i==0)
+        return "-1";
+        
+        int small=i;
+        int j=i+1;
+        while(j<n/2)
+        {
+            if(s[j]<s[small] && s[j]>s[i-1])
+            small=j;
+            j++;
+        }
+        char c=s[small];
+        s[small]=s[i-1];
+        s[i-1]=c;
+        sort(s.begin()+i,s.begin()+n/2);
+        string ans;
+        string temp=s.substr(0,n/2);
+        ans=temp;
+        if(n%2==1)
+        ans+=s[n/2];
+        reverse(temp.begin(),temp.end());
+        ans+=temp;
+        return ans;
+    }
+};
