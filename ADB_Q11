@@ -1,0 +1,22 @@
+class Solution{
+    public:
+    string amendSentence (string s)
+    {
+        string ans;
+        if(s[0]<'a')
+        ans+=(s[0]+32);
+        else
+        ans+=s[0];
+        for(int i=1;i<s.length();i++)
+        {
+            if(s[i]<'a')
+            {
+                ans+=" ";
+                ans+=(s[i]+32);
+            }
+            else
+            ans+=s[i];
+        }
+        return ans;
+    }
+};
