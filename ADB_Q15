@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    string a,b;
+    cin>>a>>b;
+    if(a.empty())
+    {
+        if(!b.empty())
+        cout<<"Recent Verion: "<<b<<endl;
+    }
+    else if(b.empty())
+    cout<<"Recent Verion: "<<a<<endl;
+    else
+    {
+        int i=0,j=0;
+        int n1=a.length();
+        int n2 = b.length();
+        bool flag=false;
+        while(i<n1 || j<n2){
+        int num1=0;
+        int num2=0;
+        while(i<n1 && a[i]!='.')
+        {
+            num1=num1*10+(a[i]-'0');
+            i++;
+        }
+        while(j<n2 && b[j]!='.')
+        {
+            num2=num2*10+(b[j]-'0');
+            j++;
+        }
+        if(num1>num2)
+        {
+            cout<<"Recent Verion: "<<a<<endl;
+            flag=true;
+            break;
+        }
+        else if(num1<num2)
+        {
+            cout<<"Recent Verion: "<<b<<endl;
+            flag=true;
+            break;
+        }
+        i++;
+        j++;
+        }
+        if(!flag)
+        cout<<"Both versions are recent"<<endl;
+        
+    }
+}
