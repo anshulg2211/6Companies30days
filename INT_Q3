@@ -12,7 +12,7 @@ int missingNumber(const string& str)
     int n=str.length();
     if(n==1)
     return -1;
-    int a=str[0]-'0',ans;
+    int ans;
     bool b=false;
     int k;
     for(int i=1;i<=min(6,n);i++)
