@@ -1,0 +1,43 @@
+class Solution {
+public:
+    
+    int minSwaps(vector<vector<int>>& grid) {
+       
+        int n=grid.size();
+        vector<pair<int,int>> zeroes;
+        for(int i=0;i<n;i++)
+        {
+            int z=0;
+            for(int j=n-1;j>=0;j--)
+            {
+                if(grid[i][j]==0)
+                    z++;
+                else
+                    break;
+            }
+            zeroes.push_back(make_pair(z,i));
+        }
+        int ans=0;
+        for(int i=n-1,k=0;i>=1;i--,k++)
+        {
+            bool b=false;
+            for(int j=0;j<n;j++)
+            {
+                if(zeroes[j].second==-1)
+                    continue;
+                else if(zeroes[j].first>=i)
+                {
+                    ans+=(zeroes[j].second-k);
+                    zeroes[j].second=-1;
+                    b=true;
+                    break;
+                }
+                else
+                zeroes[j].second++;
+            }
+            if(!b)
+                return -1;
+        }
+        return ans;
+    }
+};
