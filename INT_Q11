@@ -1,0 +1,63 @@
+class Solution {
+public:
+    Node* construct(vector<vector<int>>& grid) {
+        int z=0,o=0;
+        int n=grid.size();
+        if(n==1)
+        {
+            Node *root = new Node(grid[0][0]==0?false:true,true);
+            return root;
+        }
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(grid[i][j]==0)
+                    z++;
+                else
+                    o++;
+            }
+        }
+        if(z>0 && o>0)
+        {
+            Node* root = new Node(false,false);
+            vector<vector<int>> g1,g2,g3,g4;
+            for(int i=0;i<n;i++)
+            {
+                vector<int> v1,v2;
+                for(int j=0;j<n;j++)
+                {
+                    if(j<n/2)
+                    {
+                        v1.push_back(grid[i][j]);
+                    }
+                    else
+                    {
+                        v2.push_back(grid[i][j]);
+                    }
+                }
+                if(i<n/2)
+                {
+                    g1.push_back(v1);
+                    g2.push_back(v2);
+                }
+                else
+                {
+                    g3.push_back(v1);
+                    g4.push_back(v2);
+                }
+            }
+            root->topLeft=construct(g1);
+            root->topRight=construct(g2);
+            root->bottomLeft=construct(g3);
+            root->bottomRight=construct(g4);
+            return root;
+        }
+        else
+        {
+            Node* root = new Node(z>o?false:true,true,NULL,NULL,NULL,NULL);
+            return root;
+        }
+        return NULL;
+    }
+};
