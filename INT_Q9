@@ -1,0 +1,72 @@
+class Solution {
+public:
+    int dfs(vector<vector<int>>& heights,int i,int j,vector<vector<int>>& arr)
+    {
+        int m=heights.size();
+        int n=heights[0].size();
+        int a=0,b=0,c=0,d=0;
+        if(arr[i][j]==1)
+        return arr[i][j];
+        arr[i][j]=0;
+        if(i+1<m && heights[i+1][j]<=heights[i][j])
+        a=dfs(heights,i+1,j,arr);
+        if(j+1<n && heights[i][j+1]<=heights[i][j])
+        b=dfs(heights,i,j+1,arr);
+        
+        
+        if(a==1 || b==1 || c==1 || d==1)
+            arr[i][j]=1;
+        else
+            arr[i][j]=0;
+        return arr[i][j];
+    }
+    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
+        vector<vector<int>> ans;
+        int m=heights.size();
+        int n=heights[0].size();
+        vector<vector<int>> po(m,vector<int>(n,-1)),ao(m,vector<int>(n,-1));
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(i==0 || j==0)
+                {
+                    po[i][j]=1;
+                }
+                if(i==m-1 || j==n-1)
+                {
+                    ao[i][j]=1;
+                }
+            }
+        }
+        for(int i=1;i<m;i++)
+        {
+            for(int j=1;j<n;j++)
+            {
+                dfs(heights,i,j,po);
+            }
+        }
+        for(int i=m-2;i>=0;i--)
+        {
+            for(int j=n-2;j>=0;j--)
+            {
+                dfs(heights,i,j,ao);
+            }
+        }
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(po[i][j]==1 && ao[i][j]==1)
+                {
+                    vector<int> v;
+                    v.push_back(i);
+                    v.push_back(j);
+                    ans.push_back(v);
+                }
+            }
+        }
+        
+        return ans;
+    }
+};
