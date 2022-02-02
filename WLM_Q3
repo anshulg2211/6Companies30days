@@ -1,0 +1,26 @@
+class Solution {
+public:
+    bool winnerOfGame(string colors) {
+        int a=0,b=0,prevA=0,prevB=0;
+        for(char c:colors)
+        {
+            if(c=='A')
+            {
+                prevB=0;
+                if(prevA==2)
+                a++;
+                else
+                prevA++;
+            }
+            else
+            {
+                prevA=0;
+                if(prevB==2)
+                b++;
+                else
+                prevB++;
+            }
+        }
+        return a>b;
+    }
+};
