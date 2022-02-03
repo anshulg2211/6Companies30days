@@ -1,0 +1,31 @@
+class Solution{
+  public:
+    vector<int> find3Numbers(vector<int> arr, int N) {
+        int a=arr[0],b=INT_MAX;
+        vector<int> ans;
+        for(int i=1;i<N;i++)
+        {
+            if(b!=INT_MAX)
+            {
+                if(arr[i]>b)
+                {
+                    ans.push_back(a);
+                    ans.push_back(b);
+                    ans.push_back(arr[i]);
+                    return ans;
+                }
+                
+                if(arr[i]<b && arr[i]>a)
+                b=arr[i];
+            }
+            else
+            {
+                if(arr[i]<a)
+                a=arr[i];
+                else if(arr[i]>a)
+                b=arr[i];
+            }
+        }
+        return ans;
+    }
+};
