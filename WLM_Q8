@@ -1,0 +1,7 @@
+class Solution{
+public:
+    int height(int N){
+        int D = 1+8*N;
+        return (-1+sqrt(D))/2;
+    }
+};
