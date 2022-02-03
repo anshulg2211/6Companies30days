@@ -1,0 +1,21 @@
+class Solution{
+    public:
+    //You need to complete this fucntion
+    
+    long long power(int N,int R)
+    {
+        
+        if(R==0)
+        return 1;
+        if(R==1)
+        return N;
+        long long a = power(N,R/2)%mod;
+        long long ans = (a*a)%mod;
+        if(R%2==1)
+        {
+            return (ans*N)%mod;
+        }
+        return ans;
+    }
+
+};
